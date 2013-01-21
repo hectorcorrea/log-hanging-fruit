@@ -1,6 +1,6 @@
 {
   "name": "log-hanging-fruit",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "author": "Hector Correa <hector@hectorcorrea.com>",
   "description": "The simplest possible log that could possibly work",
   "repository": {
