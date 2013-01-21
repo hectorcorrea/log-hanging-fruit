@@ -9,8 +9,8 @@ There are 4 functions that can be used to log, each of them maps to the severity
 
 installation
 ============
-cd yourApp
-npm install log-hanging-fruit
+    cd yourApp
+    npm install log-hanging-fruit
  
 
 sample of use
