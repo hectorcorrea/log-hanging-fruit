@@ -4,7 +4,7 @@
 // ---------------------------------------------------
 
 // Use the default logger, outputs to the console and to a text file.
-var logger = require('./logger').getDefaultLogger();
+var logger = require('./index').defaultLogger;
 
 // Set the path for the files (used by the file logger)
 var options = {filePath: __dirname };

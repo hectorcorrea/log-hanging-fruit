@@ -3,7 +3,7 @@
 // -------------------------------
 
 // Get an empty logger
-var logger = require('./logger').getLogger();
+var logger = require('./index').emptyLogger;
 
 // Define any options needed by your custom logger 
 logger.setup({xyz: "xyz"});

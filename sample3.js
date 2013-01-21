@@ -3,7 +3,7 @@
 // custom logger.
 // ---------------------------------------------------
 
-var logger = require('./logger').getDefaultLogger();
+var logger = require('./index').defaultLogger;
 
 var customLogger = function(options) {
   console.log("CUSTOM LOG => " + options.setup.xyz + ' ' + options.level + ': ' + options.text);

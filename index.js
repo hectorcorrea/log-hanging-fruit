@@ -78,22 +78,18 @@ Logger.prototype.error = function(text) {
 }
 
 
-var getLogger = function() {
-  var logger = new Logger();
-  return logger;
-}
+var emptyLogger = new Logger();
 
-var getDefaultLogger = function() {
-  var logger = new Logger();
-  logger.consoleLogger = require('./consoleLogger');
-  logger.fileLogger = require('./fileLogger');
-  logger.on('log', logger.consoleLogger.log);
-  logger.on('log', logger.fileLogger.log);
-  return logger;
-}
+var defaultLogger = new Logger();
+defaultLogger.consoleLogger = require('./consoleLogger');
+defaultLogger.fileLogger = require('./fileLogger');
+defaultLogger.on('log', defaultLogger.consoleLogger.log);
+defaultLogger.on('log', defaultLogger.fileLogger.log);
 
 
-exports.getLogger = getLogger;
-exports.getDefaultLogger = getDefaultLogger;
+exports.emptyLogger = emptyLogger;
+exports.defaultLogger = defaultLogger;
+
+
 
 
