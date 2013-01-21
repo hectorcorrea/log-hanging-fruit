@@ -77,5 +77,23 @@ Logger.prototype.error = function(text) {
   this.logIt('error', text);
 }
 
-var logger = new Logger();
-exports.logger = logger;
+
+var getLogger = function() {
+  var logger = new Logger();
+  return logger;
+}
+
+var getDefaultLogger = function() {
+  var logger = new Logger();
+  logger.consoleLogger = require('./consoleLogger');
+  logger.fileLogger = require('./fileLogger');
+  logger.on('log', logger.consoleLogger.log);
+  logger.on('log', logger.fileLogger.log);
+  return logger;
+}
+
+
+exports.getLogger = getLogger;
+exports.getDefaultLogger = getDefaultLogger;
+
+

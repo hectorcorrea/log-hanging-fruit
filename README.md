@@ -9,31 +9,103 @@ There are 4 functions that can be used to log, each of them maps to the severity
 
 
 sample of use
-=============
+==========================
 
-    // Require the logger an initialize it
-    var logger = require('./logger').logger;
-    var consoleAppender = require('./consoleAppender');
-    var fileAppender = require('./fileAppender');
-    var options = {filePath: __dirname + '/' };
+    // sample1.js
+    // Use the default logger, outputs to the console and 
+    // to a text file.
+    var logger = require('./logger').getDefaultLogger();
+
+    // Set the path for the files (used by the file logger)
+    var options = {filePath: __dirname };
     logger.setup(options);
 
-    // Wire up both appender (console and text file) to be
-    // notified when something needs to be logged.
-    logger.on('log', consoleAppender.log);
-    logger.on('log', fileAppender.log);
+    // Log a few things with different levels
+    logger.debug('hello world');
+    logger.info('just for your information');
+    logger.warn('bridge freezes before the road');
+    logger.error('something bad just happend');
+
+    // Output should be in your console and in a file 
+    // named with today's date.
+
+using a custom logger
+=====================
+It's very easy to ditch the custom loggers and use your own. Just start with an empty logger by calling getLogger() (instead of getDefaultLogger). 
+
+Then create a function that you want to use for logging. Wire this function to the 'log' event and you are ready to go. All calls to debug/info/warn/error will fire up your custom logger and pass it the information to log.
+
+When your custom logger is called it will receive one parameter with the following structure:  
+
+    data = {
+        date: current date and time,
+        count: number of messages logged,
+        level: debug/info/warn/error, 
+        text: text to log,
+        setup: any options passed to the setup method
+    }
+
+Here is an example:
+
+    // sample2.js
+    // Get an empty logger
+    var logger = require('./logger').getLogger();
+
+    // Define any options needed by your custom logger 
+    logger.setup({xyz: "xyz"});
+
+    // Create a custom logger function
+    // (notice how we access the log options and the setup options)
+    var customLogger = function(options) {
+      console.log("CUSTOM LOG => " + options.setup.xyz + ' ' + options.level + ': ' + options.text);
+    } 
+
+    // Wire the log event to your custom logger
+    logger.on('log', customLogger)
 
     // Log a few things with different levels
-    logger.debug('hello debug world');
-    logger.info('hello info world');
-    logger.warn('hello warning world');
-    logger.error('hello error world');
+    logger.debug('a debug message');
+    logger.warn('a warning message');
+
+    // Output should be in your console in whatever format
+    // you defined in "customLogger"
+
+default loggers plus your custom logger
+=================================================
+If you want to add custom loggers and preserve the built-in ones
+just start with the default logger by calling getDefaultLogger()
+and add a new one like we did in the previous example.
+
+    // Start with the default logger, outputs to the console and 
+    // to a text file.
+    var logger = require('./logger').getDefaultLogger();
+
+    // Create a custom logger function
+    var customLogger = function(options) {
+      console.log("CUSTOM LOG => " + options.setup.xyz + ' ' + options.level + ': ' + options.text);
+    } 
+
+    var options = {filePath: __dirname, xyz: "xyz"};
+    logger.setup(options);
+
+    // Wire the log event to your custom logger
+    logger.on('log', customLogger);
+
+    // Log a few things with different levels
+    logger.debug('hello world');
+    logger.error('something bad happened');
+
+    // Output should be in your console (twice, once by 
+    // the built-in console logger and once by your custom
+    // loggers) plus in a file named with today's date.
+
 
 
 limitations
 ===========
 The built-in loggers don't include any advanced features like color logging (to the console) or rolling files after a size has been reached. 
-This logger is inspired in a way from log4net in the sense that it supports multiple loggers (called appenders in log4net lingo) and supports multiple levels but this logger is not nearly as battle tested as log4net or any of the other famous node.js loggers like winston.
+
+This logger is inspired from log4net in the sense that it supports multiple loggers (called appenders in log4net lingo) and also supports multiple levels but this logger is not nearly as battle tested as log4net or any of the other famous node.js loggers like winston.
 
 
 
