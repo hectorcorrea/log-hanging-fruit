@@ -1,0 +1,22 @@
+{
+  "name": "log-hanging-fruit",
+  "preferGlobal": "false",
+  "version": "0.1.0",
+  "author": "Hector Correa <hector@hectorcorrea.com>",
+  "description": "The simplest possible log that could possibly work",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hectorcorrea/log-hanging-fruit.git"
+  },
+  "keywords": [
+    "log",
+    "logger"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.8"
+  }
+}
