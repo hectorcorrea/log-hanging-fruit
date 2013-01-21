@@ -7,6 +7,11 @@ This logger supports logging messages to multiple destinations. It comes with tw
 
 There are 4 functions that can be used to log, each of them maps to the severity of the message being logged: debug, info, warn, or error. See example below.
 
+installation
+============
+cd yourApp
+npm install log-hanging-fruit
+ 
 
 sample of use
 ==========================
@@ -14,7 +19,7 @@ sample of use
     // sample1.js
     // Use the default logger, outputs to the console and 
     // to a text file.
-    var logger = require('./logger').getDefaultLogger();
+    var logger = require('log-hanging-fruit').getDefaultLogger();
 
     // Set the path for the files (used by the file logger)
     var options = {filePath: __dirname };
@@ -49,7 +54,7 @@ Here is an example:
 
     // sample2.js
     // Get an empty logger
-    var logger = require('./logger').getLogger();
+    var logger = require('log-hanging-fruit').getLogger();
 
     // Define any options needed by your custom logger 
     logger.setup({xyz: "xyz"});
@@ -78,7 +83,7 @@ and add a new one like we did in the previous example.
 
     // Start with the default logger, outputs to the console and 
     // to a text file.
-    var logger = require('./logger').getDefaultLogger();
+    var logger = require('log-hanging-fruit').getDefaultLogger();
 
     // Create a custom logger function
     var customLogger = function(options) {
